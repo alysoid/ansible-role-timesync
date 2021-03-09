@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+# See timesyncd.conf(5) for details.
+
+{% for section, options in item.items() %}
+[{{ section }}]
+{% for option in options %}
+{% for key, value in option.items() %}
+{{ key }}={{ value }}
+{% endfor %}
+{% endfor %}
+{% endfor %}

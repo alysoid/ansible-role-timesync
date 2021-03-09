@@ -1,0 +1,52 @@
+---
+- name: Generate timesyncd.conf file
+  template:
+    src: systemd_timesyncd.conf.j2
+    dest: /etc/systemd/timesyncd.conf
+    owner: root
+    mode: '0644'
+  loop: "{{ systemd_timesyncd_conf }}"
+  notify: Restart systemd-timesyncd
+
+- name: Create timesyncd.conf.d directory
+  file:
+    path: /etc/systemd/timesyncd.conf.d
+    state: directory
+    mode: '0755'
+
+- name: Check existing configuration files
+  find:
+    paths: /etc/systemd/timesyncd.conf.d
+    patterns: '*.conf'
+  when: timesync_cleanup
+  register: existing_config
+
+- name: Remove existing configuration files
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ existing_config.files }}"
+  when: timesync_cleanup
+  notify: Restart systemd-timesyncd
+
+- name: Generate configuration files
+  template:
+    src: systemd_timesyncd.conf.d.j2
+    dest: "/etc/systemd/timesyncd.conf.d/{{ item.key }}.conf"
+    owner: root
+    mode: '0644'
+  loop: "{{ systemd_timesyncd_conf_d | dict2items }}"
+  notify: Restart systemd-timesyncd
+
+- name: Check timedatectl status
+  command: timedatectl show
+  register: timedatectl_current
+  changed_when: false
+
+- name: Get current SNTP service status
+  set_fact:
+    ntp_service: "{{ timedatectl_current.stdout | regex_search('\nNTP=([^\n]+)', '\\1') | first }}"
+
+- name: Enable SNTP service
+  command: timedatectl set-ntp true
+  when: ntp_service != true
