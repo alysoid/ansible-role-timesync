@@ -1,11 +1,8 @@
+# If `yes`, removes all existing configuration files from `/etc/systemd/resolved.conf.d/*.conf`.
 timesync_cleanup: no
 
-systemd_timesyncd_conf:
-  - Time:
-    - NTP: ''
-    - FallbackNTP: '0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org'
-    - RootDistanceMaxSec: '5'
-    - PollIntervalMinSec: '32'
-    - PollIntervalMaxSec: '2048'
+# Set `/etc/systemd/timesyncd.conf` file that control NTP network time synchronization.
+systemd_timesyncd_conf: {}
 
+# Generate `/etc/systemd/resolved.conf.d/*.conf` configuration files.
 systemd_timesyncd_conf_d: {}
