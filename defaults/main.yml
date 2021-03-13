@@ -2,7 +2,7 @@
 timesync_cleanup: no
 
 # Set `/etc/systemd/timesyncd.conf` file that control NTP network time synchronization.
-systemd_timesyncd_conf: {}
+systemd_timesyncd_conf: []
 
 # Generate `/etc/systemd/resolved.conf.d/*.conf` configuration files.
 systemd_timesyncd_conf_d: {}

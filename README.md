@@ -6,7 +6,7 @@ Manage a simple SNTP client via systemd using [systemd-timesyncd](https://man.ar
 
 | Variable                   | Default | Info
 | -------------------------- | ------- | --------------------------
-| `systemd_timesyncd_conf`   | `{}`    | Set `/etc/systemd/timesyncd.conf` file that control NTP network time synchronization.
+| `systemd_timesyncd_conf`   | `[]`    | Set `/etc/systemd/timesyncd.conf` file that control NTP network time synchronization.
 | `systemd_timesyncd_conf_d` | `{}`    | Create custom configuration files in `/etc/systemd/timesyncd.conf.d/*.conf`
 | `timesync_cleanup`         | `no`    | Remove existing configuration files from `/etc/systemd/resolved.conf.d/*.conf`.
 
