@@ -5,7 +5,7 @@ galaxy_info:
   author: Andrea Brandi
   description: Manage a simple SNTP client via systemd using systemd-timesyncd.
   license: MIT
-  min_ansible_version: 2.4
+  min_ansible_version: 2.9
   platforms:
   - name: ArchLinux
     versions:
