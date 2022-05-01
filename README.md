@@ -1,4 +1,4 @@
-# [Catena](https://github.com/alysoid/catena) - Timesync Ansible Role
+# [Catena](https://github.com/alysoid/catena) Ansible Role: systemd-timesyncd
 
 Manage a simple SNTP client via systemd using [systemd-timesyncd](https://man.archlinux.org/man/systemd-timesyncd.8), a system service that may be used to synchronize the local system clock with a remote Network Time Protocol server. It also saves the local time to disk every time the clock has been synchronized.
 
