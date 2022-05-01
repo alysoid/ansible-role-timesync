@@ -5,6 +5,8 @@
     dest: /etc/systemd/timesyncd.conf
     owner: root
     mode: "0644"
+  vars:
+    - current_item: "{{ item.options }}"
   loop: "{{ systemd_timesyncd_conf }}"
   notify: Restart systemd-timesyncd
 
@@ -32,11 +34,13 @@
 
 - name: Generate configuration files
   ansible.builtin.template:
-    src: systemd_timesyncd.conf.d.j2
-    dest: "/etc/systemd/timesyncd.conf.d/{{ item.key }}.conf"
+    src: systemd_timesyncd.conf.j2
+    dest: "/etc/systemd/timesyncd.conf.d/{{ item.name }}.conf"
     owner: root
     mode: "0644"
-  loop: "{{ systemd_timesyncd_conf_d | dict2items }}"
+  vars:
+    - current_item: "{{ item.options }}"
+  loop: "{{ systemd_timesyncd_conf_d }}"
   notify: Restart systemd-timesyncd
 
 - name: Check timedatectl status

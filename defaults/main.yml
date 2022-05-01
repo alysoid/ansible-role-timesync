@@ -5,4 +5,4 @@ timesync_cleanup: no
 systemd_timesyncd_conf: []
 
 # Generate `/etc/systemd/resolved.conf.d/*.conf` configuration files.
-systemd_timesyncd_conf_d: {}
+systemd_timesyncd_conf_d: []
