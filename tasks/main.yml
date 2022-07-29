@@ -18,7 +18,7 @@
   ansible.builtin.find:
     paths: /etc/systemd/timesyncd.conf.d
     patterns: "*.conf"
-  when: timesync_cleanup
+  when: catena_timesyncd_cleanup
   register: existing_config
 
 - name: Remove existing configuration files
@@ -26,7 +26,7 @@
     path: "{{ item.path }}"
     state: absent
   loop: "{{ existing_config.files }}"
-  when: timesync_cleanup
+  when: catena_timesyncd_cleanup
   notify: Restart systemd-timesyncd
 
 - name: Generate configuration files
@@ -37,7 +37,7 @@
     mode: "0644"
   vars:
     - current_item: "{{ item.options }}"
-  loop: "{{ systemd_timesyncd }}"
+  loop: "{{ catena_timesyncd }}"
   notify: Restart systemd-timesyncd
 
 - name: Check timedatectl status
